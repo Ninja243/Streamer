@@ -1,0 +1,36 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{6359FDFC-508B-4FA2-B90A-2D2DFE32BA47}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="Streamer.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="Streamer">
+			<MSBuild Projects="Streamer.dproj"/>
+		</Target>
+		<Target Name="Streamer:Clean">
+			<MSBuild Targets="Clean" Projects="Streamer.dproj"/>
+		</Target>
+		<Target Name="Streamer:Make">
+			<MSBuild Targets="Make" Projects="Streamer.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="Streamer"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="Streamer:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="Streamer:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

@@ -1,0 +1,72 @@
+Streamer Readme
+Mweya Ruider - 2017
+
+-- Introduction --
+
+Thanks for installing Streamer! Streamer is an application that aims to publicize locally
+produced, low budget movies, the details of which are stored in a database.
+
+-- Installation --
+
+Streamer is very light on resources and should run on any computer that is running a version
+of Windows that is newer than XP. Therefore, the minimum PC requirements are as follows:
+
+Operating System:					Windows Vista or newer (32bit and 64bit supported).
+Processor:							800MHz CPU
+RAM:								500MB
+System Memory:						35MB
+Internet Connection:				Basic ADSL
+Screen Resolution:					1366x768 and up (as long as 1366x768 is supported)
+Sound cards and speakers are recommended but optional.
+
+
+-- Licencing --
+
+This application and the source thereof are subject to the MIT licence, which allows the
+reverse engineering, decompiling and general editing of this application on the condition
+that the same can be done with your edited version.
+
+-- Features --
+
+This application includes a built in web browser and video player for viewing the trailers
+and movies which have their details stored in the database. Users who hold an administrator
+account can add, remove and edit movie and user details and even view stats about the database.
+To enable the Developer Mode (which is needed to edit the database), press the Home key.
+To disable it, press the End key.
+
+-- Database Notes --
+
+The genres of the movies are stored in the database (Streamer.mdb) which comes with Streamer.
+The numbers that are used to categorise the movies by means of genre are as follows:
+
+
+GenreID	GenreName		GenreID	GenreName		GenreID	GenreName
+
+1	Drama			2	Romance			3	Short
+4	Crime			5	Thriller		6	Action
+7	Fantasy			8	Animation		9	Horror
+10	War				11	Biography		12	Sport
+13	Talk Show		14	News			15	Game Show
+16	Lo-Fi			17	Comedy			18	Mystery
+19	Family			20	Adventure		21	Sci-Fi
+22	History			23	Documentary		24	Music
+25	Musical			26	Reality TV		27	Western
+28	Noir
+
+-- Bugs  --
+
+Changing the resolution does not work on some devices for yet unknown reasons.
+If the program fails to launch due to it not being able to change the screen resolution
+to an appropriate value, it will try to change the screen resolution back to the original
+value before closing. If this does not work, close the application and change your
+screen resolution to the default value specified under Control Panel.
+
+If you would like to edit the database and log in using the login form that is part of the
+DB editor and not the main menu, you might experience a bug where even though you have been
+logged in, you cannot see the DB's. A temporary workaround is to, close the editor and open 
+it again.
+
+-- Error Codes --
+
+0x01 - Program failed to connect to the database even though the database exists.
+0x02 - Program failed to connect to the database, which cannot be found.

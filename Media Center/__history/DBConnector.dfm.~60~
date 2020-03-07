@@ -1,0 +1,31 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 371
+  Width = 510
+  object StreamerADO: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\mweya\Down' +
+      'loads\Streamer\DB\Streamer.mdb;Mode=ReadWrite|Share Deny None;Pe' +
+      'rsist Security Info=False;'
+    LoginPrompt = False
+    Mode = ADODB
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 32
+    Top = 32
+  end
+  object UsersTB: TADOTable
+    Active = True
+    Connection = StreamerADO
+    CursorType = ctStatic
+    TableName = 'Users'
+    Left = 120
+    Top = 32
+  end
+  object UsersDS: TDataSource
+    DataSet = UsersTB
+    Left = 120
+    Top = 88
+  end
+end

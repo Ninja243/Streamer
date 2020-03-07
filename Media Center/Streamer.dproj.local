@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017-01-24 10:26:00.349.pas,C:\Users\Mweya\Documents\RAD Studio\Projects\Unit1.pas=C:\Users\Mweya\School\IT\Delphi Executables\Media Center\Source.pas</Transaction>
+    <Transaction>2017-01-24 10:26:00.349.dfm,C:\Users\Mweya\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\Mweya\School\IT\Delphi Executables\Media Center\Source.dfm</Transaction>
+    <Transaction>2017-01-24 11:26:53.606.dproj,C:\Users\Mweya\Documents\RAD Studio\Projects\Project1.dproj=C:\Users\Mweya\Documents\RAD Studio\Projects\Streamer.dproj</Transaction>
+    <Transaction>2017-01-24 17:37:45.431.dproj,C:\Users\Mweya\Documents\RAD Studio\Projects\Streamer.dproj=C:\Users\Mweya\School\IT\Delphi Executables\Media Center\Streamer.dproj</Transaction>
+    <Transaction>2017-02-24 10:48:28.567.pas,C:\Users\Mweya\School\IT\Delphi Executables\Media Center\Unit1.pas=C:\Users\Mweya\School\IT\Delphi Executables\Media Center\DBConnector.pas</Transaction>
+    <Transaction>2017-02-24 10:48:28.567.dfm,C:\Users\Mweya\School\IT\Delphi Executables\Media Center\Unit1.dfm=C:\Users\Mweya\School\IT\Delphi Executables\Media Center\DBConnector.dfm</Transaction>
+    <Transaction>2017-05-11 15:07:22.028.pas,C:\Users\mweya\School\IT\Delphi Executables\Media Center\Unit1.pas=C:\Users\mweya\School\IT\Delphi Executables\Media Center\VideoScanner.pas</Transaction>
+    <Transaction>2017-08-21 09:35:24.254.pas,C:\Users\mweya\School\School\IT\Delphi Executables\Media Center\Admin.pas=</Transaction>
+    <Transaction>2017-08-21 09:35:24.254.dfm,C:\Users\mweya\School\School\IT\Delphi Executables\Media Center\Admin.dfm=</Transaction>
+    <Transaction>2017-09-04 20:53:11.336.pas,C:\Users\mweya\School\School\IT\Delphi Executables\Media Center\Unit1.pas=C:\Users\mweya\School\School\IT\Delphi Executables\Media Center\Threads.pas</Transaction>
+  </Transactions>
+</BorlandProject>

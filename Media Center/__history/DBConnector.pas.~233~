@@ -1,0 +1,251 @@
+unit DBConnector;
+// KEEP THIS LINE FOR DEBUGGING ONLY!
+// COMMENT IT OUT FOR RELEASE
+{$APPTYPE CONSOLE}
+
+interface
+
+uses
+  SysUtils, Classes, dialogs, DB, ADODB, ShellAPI, windows, DbGrids, dbctrls;
+
+type
+  TDataModule1 = class(TDataModule)
+    StreamerADO: TADOConnection;
+    UsersTB: TADOTable;
+    UsersDS: TDataSource;
+    TitleTB: TADOTable;
+    TitleDS: TDataSource;
+    ADOQuery1: TADOQuery;
+    procedure FreeDB;
+    function getTitle(ID: integer): string;
+    procedure PrintConsole(Msg: string; msgtype: string);
+    function DevDied(): boolean;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure AddAccount(username: string; password: string);
+    procedure MoveDown;
+    procedure MoveUp;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule1: TDataModule1;
+  Path: string;
+  DebugMode: string;
+  ID: integer;
+  SQLquery: string;
+  Msg: string;
+  msgtype: string;
+  DevDead: string;
+  username: string;
+  password: string;
+
+implementation
+
+{$R *.dfm}
+uses
+source;
+
+procedure TDataModule1.MoveDown;
+begin
+  while (not TitleTB.Eof) do
+    begin
+      TitleTB.Next;
+    end;
+    Source.Background.BrowseRefresh;
+  PrintConsole('Right arrow clicked.', 'info');
+end;
+
+procedure TDataModule1.MoveUp;
+begin
+while (not TitleTB.Eof) do
+    begin
+      TitleTB.Prior;
+    end;
+    Source.Background.BrowseRefresh;
+  PrintConsole('Left arrow clicked.', 'info');
+end;
+
+procedure TDataModule1.AddAccount(username:string; password:string);
+begin
+  try
+    //UsersTB.Locate('Username;Password', VarArrayOf([username, password]), []);
+     UsersTB.Insert;                          //Start inserting
+    UsersTB['Username'] := username;         //Adding all the data into the table
+    UsersTB['Password'] := password;
+    UsersTb.Post;
+    writeln('[*] Account created');
+  except
+    writeln('[!] Account creation failed!');
+  end;
+end;
+
+procedure TDataModule1.FreeDB;
+begin
+  writeln('[*] Freeing DB...');
+  try
+    StreamerADO.Connected := False;
+    ShellExecute(0, nil, Pchar('cmd.exe'),
+      Pchar('/C del ' + Path + '\DB\Streamer.ldb'), 0, 0);
+    writeln('[*] DB freed');
+  except
+    ShellExecute(0, nil, Pchar('cmd.exe'),
+      Pchar('/C del ' + Path + '\DB\Streamer.ldb'), 0, 0);
+    writeln('[!] Error freeing the DB, force closing app now...');
+  end;
+end;
+
+function TDataModule1.getTitle(ID: integer): string;
+begin
+  SQLquery := 'SELECT * FROM Titles WHERE MovieID = ' + inttostr(ID) + ';';
+  // ADOQuery1.Close;
+  // ADOQuery1.SQL.ADD(SQLquery);
+  // ADOQuery1.Open;
+  // Result := ADOQuery1.ToString();
+  Result := '';
+end;
+
+procedure TDataModule1.PrintConsole(Msg: string; msgtype: string);
+begin
+  if msgtype = 'info' then
+  begin
+    writeln('[*] ' + Msg);
+  end
+  else
+  begin
+    if msgtype = 'warn' then
+    begin
+      writeln('[!] ' + Msg);
+    end
+    else if msgtype = 'header' then
+    begin
+      writeln(Msg);
+    end
+    else if msgtype = 'gui' then
+    begin
+      writeln('    - ' + Msg);
+    end
+    else if msgtype = 'nested gui' then
+    begin
+      writeln('       - ' + Msg);
+    end
+    else
+    begin
+      writeln('[u] ' + Msg);
+    end;
+  end;
+
+end;
+
+procedure TDataModule1.DataModuleCreate(Sender: TObject);
+begin
+  try
+    if IsConsole = true then
+    begin
+      writeln('[*] Data Module Built...');
+      writeln('[*] Connecting to DB...');
+      writeln('    - Looking for DB at ' + Path + '\DB\Streamer.mdb');
+      try
+        StreamerADO.Mode := cmReadWrite;
+      except
+        writeln('[!] Error switching mode to read write');
+      end;
+      if StreamerADO.Connected = true then
+      begin
+        writeln('[*] DB connected, launching GUI...');
+      end
+      else
+        try
+          StreamerADO.Connected := true;
+          writeln('[*] DB connected, switching focus to GUI...');
+        except
+          begin
+            writeln('[!] Error connecting to DB!');
+            if fileexists(Path + '\DB\Streamer.mdb') then
+            begin
+              // Oh, so it exists. Nice.
+            end
+            else
+            begin
+              writeln('[!] DB not found at ' + Path + '\DB\Streamer.mdb');
+            end;
+            writeln('    - Press any key to start Streamer anyway.');
+            readln;
+          end;
+        end;
+    end
+    else
+    begin
+      // No code so this doesn't show
+      //
+      // Would it be possible to change the above
+      // "{$APPTYPE CONSOLE}" line to "{$APPTYPE GUI}"
+      // or remove it completely on the fly to stop the
+      // CMD window from showing?
+      //
+      if StreamerADO.Connected = true then
+      begin
+        // No errors here mate.
+      end
+      else
+      begin
+        try
+          begin
+            StreamerADO.Connected := true;
+          end;
+        except
+          if fileexists(Path + '\DB\Streamer.mdb') then
+          begin
+            messagedlg(
+              'Error connecting to the DB. Please contact the developer and state that your error code is 0x01', mterror, [mbok], 0);
+          end
+          else
+          begin
+            messagedlg(
+              'Error connecting to the DB. Please contact the developer and state that your error code is 0x02', mterror, [mbok], 0);
+          end;
+        end;
+      end;
+      DevDead := 'false';
+    end;
+    if IsConsole = False then
+    // No debug messages from hereon out.
+    begin
+      try
+        if StreamerADO.Connected = False then
+        begin
+          try
+            StreamerADO.Connected := true;
+          except
+            begin
+              // Not even an error cuz you aren't debugging
+            end;
+            //
+          end;
+        end;
+      except
+        DevDead := 'true';
+      end;
+    end;
+  finally
+  end;
+end;
+
+function TDataModule1.DevDied(): boolean;
+begin
+  if DevDead = 'true' then
+  begin
+    Result := true;
+  end;
+  if DevDead = 'false' then
+  begin
+    Result := False;
+  end;
+
+end;
+
+end.
+
+// Mweya Ruider - 2017

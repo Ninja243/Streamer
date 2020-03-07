@@ -1,0 +1,18 @@
+program Streamer;
+
+uses
+  Forms,
+  Source in 'Source.pas' {Background},
+  DBConnector in 'DBConnector.pas' {DataModule1: TDataModule},
+  VideoScanner in 'VideoScanner.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Streamer';
+  Application.CreateForm(TBackground, Background);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

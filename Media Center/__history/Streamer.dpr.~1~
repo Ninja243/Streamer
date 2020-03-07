@@ -1,0 +1,15 @@
+program Streamer;
+
+uses
+  Forms,
+  Source in 'Source.pas' {Background};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Streamer';
+  Application.CreateForm(TBackground, Background);
+  Application.Run;
+end.

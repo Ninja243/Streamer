@@ -1,0 +1,58 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 371
+  Width = 510
+  object StreamerADO: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=C:\Us' +
+      'ers\mweya\Downloads\Streamer\DB\Streamer.mdb;Mode=ReadWrite;Pers' +
+      'ist Security Info=False;Jet OLEDB:System database="";Jet OLEDB:R' +
+      'egistry Path="";Jet OLEDB:Database Password="";Jet OLEDB:Engine ' +
+      'Type=5;Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Global Partia' +
+      'l Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;Jet OLEDB:New ' +
+      'Database Password="";Jet OLEDB:Create System Database=False;Jet ' +
+      'OLEDB:Encrypt Database=False;Jet OLEDB:Don'#39't Copy Locale on Comp' +
+      'act=False;Jet OLEDB:Compact Without Replica Repair=False;Jet OLE' +
+      'DB:SFP=False'
+    LoginPrompt = False
+    Mode = cmReadWrite
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 32
+    Top = 32
+  end
+  object UsersTB: TADOTable
+    Active = True
+    Connection = StreamerADO
+    CursorType = ctStatic
+    TableName = 'Users'
+    Left = 120
+    Top = 32
+  end
+  object UsersDS: TDataSource
+    DataSet = UsersTB
+    Left = 120
+    Top = 88
+  end
+  object TitleTB: TADOTable
+    Active = True
+    Connection = StreamerADO
+    CursorType = ctStatic
+    TableName = 'Titles'
+    Left = 192
+    Top = 32
+  end
+  object TitleDS: TDataSource
+    DataSet = TitleTB
+    Left = 192
+    Top = 88
+  end
+  object ADOQuery1: TADOQuery
+    Connection = StreamerADO
+    DataSource = TitleDS
+    Parameters = <>
+    Left = 32
+    Top = 96
+  end
+end
